@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>MCCOC</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div align="center">
+            <h1 style="text-align: center">Region CRUD</h1>
+            <br>
+            
+            <!--start of saving-->
+            <form th:action="@{/save}" th:object="${region}" method="POST">
+                <table border="0" cellpadding="10">
+                    <tr>
+                        <td>Region ID : </td>
+                        <td><input type="text" id="textId" class="form-control" th:field="*{id}" required="required"></td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Region Name : </td>
+                        <td><input type="text" id="textName" class="form-control" th:field="*{name}" required="required"></td>
+                    </tr>
+                    
+                    <tr>
+                        <td><input type="submit" value="Save"></td>
+                    </tr>
+                </table>  
+            </form>
+            <br> <br>
+            <!-- end of saving -->
+            
+            <!--start of searching-->
+            <div>
+                <form th:action="@{/}">
+                    Filter : 
+<!--                    kotak input-->
+                    <input type="text" name="keyword" th:value="${keyword}" required /> 
+                    &nbsp;
+                    <input type="submit" value="Search" />
+                    &nbsp;
+                    <input type="button" value="Cancel" onclick="clearFilter()"/>
+                </form>       
+            </div> <br>
+             <!-- end of searching -->
+            
+
+            <!--get All-->
+            <table align="center" border="1" cellpadding="10" style="text-align: left">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Name</th>
+                        <th>Actions</th> 
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    <tr th:each="as : ${regions}">
+                        <td th:text="${as.id}"></td>
+                        <td th:text="${as.name}"></td>
+                        <td>
+                            <a th:href="@{'/klik/' + ${as.id}}">Detail</a>
+                            &nbsp;
+                            <a th:href="@{'/delete/' + ${as.id}}">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>      
+            </table>
+                <!--end of getAll-->
+        
+        </div>
+        
+        <script type="text/javascript">
+            function clearFilter(){
+                window.location = '/';
+            }
+        </script>
+    </body>
+</html>
